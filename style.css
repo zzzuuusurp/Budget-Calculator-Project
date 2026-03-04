@@ -1,0 +1,49 @@
+:root {
+    --primary-color: #0054A8;
+    --secondary-color: #ffffff;
+}
+
+
+nav {
+    background-color: var(--primary-color);
+    display: flex;
+    justify-content: space-between;
+    height: 10vh;
+    margin: 0;
+}
+
+nav img {
+    width: 10vw;
+    height: auto;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+}
+
+.hero-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(Images/Hero.jpg);
+    background-size: cover;
+    height: 90vh;
+}
+
+.structure1 {
+    background-color: var(--primary-color);
+    padding: 10% 5%;
+    font-size: 1.5em;
+}
+
+
+#proceed {
+    background-color:var(--secondary-color);
+    color: black;
+    text-align: center;
+    border: black solid 3px;
+    text-decoration: none;
+    padding: 3% 7%;
+    border-radius: 20px;
+}
