@@ -7,6 +7,7 @@
 nav {
     background-color: var(--primary-color);
     display: flex;
+    padding: 0 5%;
     justify-content: space-between;
     height: 10vh;
     margin: 0;
@@ -15,6 +16,14 @@ nav {
 nav img {
     width: auto;
     height: 100%;
+    border-radius: 100%;
+    
+}
+nav a:last-child {
+    width: auto;
+    height: 70%;
+    border-radius: 100%;
+align-self: center;
 }
 
 body {
@@ -63,4 +72,31 @@ body {
     border: none;
     border-radius: 15px;
     cursor: pointer;
+}
+.option {
+    display: flex;
+    height: 5vh;
+    width: 100%;
+    border-radius: 15px;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    flex-direction: column;
+    gap: 10px;
+    font-size: 24px;
+    justify-content: center;
+    align-items: center;
+    padding: 2%;
+    cursor: pointer;
+} 
+.option:hover {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    border: var(--primary-color) solid 3px;
+}
+#careerList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+    width: 90vw;
+    gap: 20px;
+    padding: 5%;
 }
