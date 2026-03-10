@@ -2,6 +2,65 @@ let choice = {
     Occupation: "",
     Salary: 0
 };
+const loans = document.getElementById("Student-Loans");
+const housing = document.getElementById("Housing");
+const essentials = document.getElementById("Essential");
+const lifestyle = document.getElementById("Lifestyle");
+const savings = document.getElementById("Savings");
+const chartCanvas = document.getElementById("Chart");
+const inputs = [loans, housing, essentials, lifestyle, savings];
+
+
+const config = new Chart(chartCanvas, {
+    type: "doughnut",
+    data: {
+        labels: ["Student-Loans", "Housing", "Essentials", "Lifestyle", "Savings"],
+        datasets: [{ label: "$",
+            data: [0, 0, 0, 0, 0],
+            backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#999999"]
+        }]
+    }, options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: "top",
+            },
+            title: {
+                display: true,
+                text: "Budget Breakdown"
+            }
+        }
+    }
+
+});
+function updateChart() {
+    const total = Number(loans.value) + Number(housing.value) + Number(essentials.value) + Number(lifestyle.value) + Number(savings.value);
+    if (total > 0) {
+        config.data.datasets[0].data = [Number(loans.value), Number(housing.value), Number(essentials.value), Number(lifestyle.value), Number(savings.value)];
+    }
+    saveBudget();
+     config.update();
+}
+function resetChart() {
+    config.data.datasets[0].data = [0, 0, 0, 0, 0];
+    inputs.forEach(input => input.value = "");
+}
+function saveBudget() {
+    const budget = {
+        Loans: Number(loans.value),
+        Housing: Number(housing.value),
+        Essentials: Number(essentials.value),
+        Lifestyle: Number(lifestyle.value),
+        Savings: Number(savings.value)
+    };
+    localStorage.setItem("budget", JSON.stringify(budget));
+    console.log("Budget saved:", budget);
+}
+inputs.forEach(inputs, () => {
+    inputs.addEventListener("input", updateChart);
+});
+
+
 
 
 async function getCareers() {
