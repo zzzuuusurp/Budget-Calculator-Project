@@ -2,6 +2,7 @@ let choice = {
     Occupation: "",
     Salary: 0
 };
+
 const loans = document.getElementById("Student-Loans");
 const housing = document.getElementById("Housing");
 const essentials = document.getElementById("Essential");
@@ -10,55 +11,59 @@ const savings = document.getElementById("Savings");
 const chartCanvas = document.getElementById("Chart");
 const inputs = [loans, housing, essentials, lifestyle, savings];
 
-
-const config = new Chart(chartCanvas, {
-    type: "doughnut",
-    data: {
-        labels: ["Student-Loans", "Housing", "Essentials", "Lifestyle", "Savings"],
-        datasets: [{ label: "$",
-            data: [0, 0, 0, 0, 0],
-            backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#999999"]
-        }]
-    }, options: {
-        responsive: true,
-        plugins: {
-            legend: {
-                position: "top",
-            },
-            title: {
-                display: true,
-                text: "Budget Breakdown"
+let config = null;
+if (chartCanvas && window.Chart) {
+    config = new Chart(chartCanvas, {
+        type: "doughnut",
+        data: {
+            labels: ["Student-Loans", "Housing", "Essentials", "Lifestyle", "Savings"],
+            datasets: [{
+                label: "$",
+                data: [0, 0, 0, 0, 0],
+                backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#999999"]
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: "top" },
+                title: { display: true, text: "Budget Breakdown" }
             }
         }
-    }
+    });
+}
 
-});
 function updateChart() {
-    const total = Number(loans.value) + Number(housing.value) + Number(essentials.value) + Number(lifestyle.value) + Number(savings.value);
-    if (total > 0) {
-        config.data.datasets[0].data = [Number(loans.value), Number(housing.value), Number(essentials.value), Number(lifestyle.value), Number(savings.value)];
+    const vals = [loans, housing, essentials, lifestyle, savings].map(i => Number(i?.value) || 0);
+    const total = vals.reduce((s, v) => s + v, 0);
+    if (config) {
+        config.data.datasets[0].data = vals;
+        config.update();
     }
     saveBudget();
-     config.update();
 }
+
 function resetChart() {
-    config.data.datasets[0].data = [0, 0, 0, 0, 0];
-    inputs.forEach(input => input.value = "");
+    if (config) {
+        config.data.datasets[0].data = [0, 0, 0, 0, 0];
+        config.update();
+    }
+    inputs.forEach(input => { if (input) input.value = ""; });
 }
+
 function saveBudget() {
     const budget = {
-        Loans: Number(loans.value),
-        Housing: Number(housing.value),
-        Essentials: Number(essentials.value),
-        Lifestyle: Number(lifestyle.value),
-        Savings: Number(savings.value)
+        Loans: Number(loans?.value) || 0,
+        Housing: Number(housing?.value) || 0,
+        Essentials: Number(essentials?.value) || 0,
+        Lifestyle: Number(lifestyle?.value) || 0,
+        Savings: Number(savings?.value) || 0
     };
     localStorage.setItem("budget", JSON.stringify(budget));
     console.log("Budget saved:", budget);
 }
-inputs.forEach(inputs, () => {
-    inputs.addEventListener("input", updateChart);
-});
+
+inputs.forEach(input => { if (input) input.addEventListener("input", updateChart); });
 
 
 
@@ -114,34 +119,78 @@ function loadLocalStorage() {
 
         
     }
-    getCareers();
-    displayResults();
-
-    function taxes() {
-        const medicare = choice.Salary * 0.0145; // Example tax rate
-        const socialSecurity = choice.Salary * 0.062; // Example tax rate
-        const stateTax = choice.Salary * 0.04; // Example tax rate
-        function federalTax () {
-        if (choice.Salary <= 12400) { let tax = choice.Salary * 0.10; }
-        else if (choice.Salary <= 50400) { let tax = 1240 + (choice.Salary - 12400) * 0.12; }
-        else if (choice.Salary > 50400) { let tax = 1240 + 4560 + (choice.Salary - 50400) * 0.22; }
-        return tax;
-        }; // Example tax rate
-        const totalTaxes = medicare + socialSecurity + stateTax + federalTax;
-        const netSalary = choice.Salary - totalTaxes;
-        return { totalTaxes, netSalary };
+    // Load saved choice and initialize page-specific UI
+    loadLocalStorage();
+    if (document.getElementById("careerList")) {
+        getCareers();
     }
-    function displayResults() {
-        getCareers()
-        const resultsDiv = document.getElementById("Results");
-        const { totalTaxes, netSalary } = taxes(Number);
-        resultsDiv.innerHTML = `
-        <h2>Results for ${choice.Occupation}</h2>
-            <p>Total Taxes: $${totalTaxes.toFixed(2)}</p>
-            <p>Net Salary: $${netSalary.toFixed(2)}</p>
-            <p>Monthly Income: $${(netSalary / 12).toFixed(2)}</p>
-
-        `;
+    // If this page has an Income section, show taxes and income
+    if (document.getElementById("Income")) {
+        displayIncome();
     }
-    console.log(choice);
-    
+
+// Load saved career
+function loadLocalStorage() {
+    const savedChoice = localStorage.getItem("choice");
+    if (savedChoice) {
+        choice = JSON.parse(savedChoice);
+    }
+}
+
+// Federal tax using bracket portions
+function federalTax(salary) {
+    let tax = 0;
+
+    if (salary <= 12400) {
+        tax += salary * 0.10;
+    } else if (salary <= 50400) {
+        tax += 12400 * 0.10; // first bracket
+        tax += (salary - 12400) * 0.12; // second bracket
+    } else {
+        tax += 12400 * 0.10;
+        tax += (50400 - 12400) * 0.12;
+        tax += (salary - 50400) * 0.22;
+    }
+
+    return tax;
+}
+
+// Calculate all taxes
+function taxes() {
+    const salary = Number(choice.Salary) || 0;
+
+    const medicare = salary * 0.0145;
+    const socialSecurity = Math.min(salary, 160200) * 0.062; // apply Social Security cap
+    const stateTax = salary * 0.04;
+
+    const federal = federalTax(salary);
+
+    const totalTaxes = medicare + socialSecurity + stateTax + federal;
+    const netSalary = salary - totalTaxes;
+
+    return { totalTaxes, netSalary };
+}
+
+// Display income section
+function displayIncome() {
+    loadLocalStorage();
+
+    const incomeDiv = document.getElementById("Income");
+    if (!incomeDiv) return;
+
+    const salary = Number(choice.Salary) || 0;
+
+    const { totalTaxes, netSalary } = taxes();
+
+    incomeDiv.innerHTML = `
+        <h2>Income</h2>
+        <p>Career: ${choice.Occupation || "N/A"}</p>
+        <p>Annual Salary: $${salary.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>
+        <p>Total Taxes: $${totalTaxes.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>
+        <p>Net Salary: $${netSalary.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>
+        <p>Monthly Income: $${(netSalary / 12).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>
+    `;
+}
+
+// Run when page loads
+displayIncome();
