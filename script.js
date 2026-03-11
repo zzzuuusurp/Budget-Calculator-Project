@@ -25,6 +25,7 @@ if (chartCanvas && window.Chart) {
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 legend: { position: "top" },
                 title: { display: true, text: "Budget Breakdown" }

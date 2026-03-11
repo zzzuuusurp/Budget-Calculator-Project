@@ -1,6 +1,7 @@
 :root {
     --primary-color: #0054A8;
     --secondary-color: #ffffff;
+    --index-blue: #0054A8BF;
 }
 
 
@@ -23,7 +24,7 @@ nav a:last-child {
     width: auto;
     height: 70%;
     border-radius: 100%;
-align-self: center;
+    align-self: center;
 }
 
 body {
@@ -35,38 +36,66 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url(Images/Hero.jpg);
+    z-index: 1;
     background-size: cover;
     height: 90vh;
+    
+}
+
+.hero-img::before { /*This allows for the blur affect*/
+    background-image: url(Images/Hero.jpg);
+    content: "";
+    position: absolute;
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    bottom: 0;
+    z-index: -1;
+    filter: blur(0.28125rem);
 }
 
 .structure1 {
-    background-color: var(--primary-color);
+    background-color: var(--index-blue);
     padding: 10% 5%;
     font-size: 1.5em;
+    font-family: "Noto Sans", sans-serif;
+    font-weight: 500;
+    height: 30vh;
+    width: 30vw;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 
 #proceed {
     background-color:var(--secondary-color);
     color: black;
-    text-align: center;
     border: black solid 3px;
     text-decoration: none;
+    text-align: center;
     padding: 3% 7%;
     border-radius: 20px;
+    width: 8vw;
+    height: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 #Expenses {
+    font-family: "Noto Sans", sans-serif;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 0.625rem;
 
 }
 .Expense {
     width: 200px;
 }
 #Add-expense {
-    width: 60%;
+    width: 20vw;
     padding: 5px;
     background-color: var(--primary-color);
     color: var(--secondary-color);
@@ -101,6 +130,35 @@ body {
     gap: 40px;
     padding: 5%;
 }
+
+#main-content {
+    display: flex;
+    justify-content: space-around;
+}
+
+#container-Right {
+    width: 25vw;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+}
+
+#Income {
+    font-family: "Noto Sans", sans-serif;
+}
+
+#circle-green {
+    width: 50%;
+    height: 50%;
+    background-color: green;
+}
+
+#row-aligned {
+    display: flex;
+}
+
 @media screen and (max-width: 768px) {
     #careerList {
         grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));

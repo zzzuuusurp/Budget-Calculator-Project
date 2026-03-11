@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://fonts.googleapis.com' rel='stylesheet'>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+        </style>
     <title>Budget</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -14,16 +17,22 @@
         <header>
             <h1>Budget Calculator</h1>
         </header>
-        <div>
-
-        <!--Income for selected career-->
+        <main id="main-content">
+            
+        <div id="container-Left">
+            <!--Income for selected career-->
         <section id="Income">
+        
         </section>
     
         <section id="Expenses">
             <h2>Expenses</h2>
+            <form class="row-Aligned">
+                
             <label for="Student-Loans">Student Loans:</label>
             <input type="number" id="Student-Loans" name="Student-Loans" step="1" class="Expense">
+            </form>
+            
             <label for="Housing">Housing:</label>
             <input type="number" id="Housing" name="Housing" step="1" class="Expense">
             <label for="Essential">Essential:</label>
@@ -35,13 +44,21 @@
             <button id="Add-expense">Add Expense</button>
         </section>
         </div>
-        <canvas id="Chart"></canvas>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script src="script.js" defer>
-            displayResults();
-            
-            
-        </script>
+
+        <div id="container-Right">
+            <canvas id="Chart"></canvas>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script src="script.js" defer>
+                displayResults();
+                
+                
+            </script>
+        </div>
+
+
+
+        </main>
+       
 
 </body>
 </html>
