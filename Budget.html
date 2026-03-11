@@ -14,10 +14,12 @@
         <header>
             <h1>Budget Calculator</h1>
         </header>
-        <div>
-
-        <!--Income for selected career-->
+        <main id="main-content">
+            
+        <div id="container-Left">
+            <!--Income for selected career-->
         <section id="Income">
+        
         </section>
     
         <section id="Expenses">
@@ -35,13 +37,21 @@
             <button id="Add-expense">Add Expense</button>
         </section>
         </div>
-        <canvas id="Chart"></canvas>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script src="script.js" defer>
-            displayResults();
-            
-            
-        </script>
+
+        <div id="container-Right">
+            <canvas id="Chart"></canvas>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script src="script.js" defer>
+                displayResults();
+                
+                
+            </script>
+        </div>
+
+
+
+        </main>
+       
 
 </body>
 </html>
