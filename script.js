@@ -16,10 +16,10 @@ if (chartCanvas && window.Chart) {
     config = new Chart(chartCanvas, {
         type: "doughnut",
         data: {
-            labels: ["Student-Loans", "Housing", "Essentials", "Lifestyle", "Savings"],
+            labels: ["Student-Loans", "Housing", "Essentials", "Lifestyle", "Savings", "New-Expense"],
             datasets: [{
                 label: "$",
-                data: [0, 0, 0, 0, 0],
+                data: [0, 0, 0, 0, 0, 0],
                 backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#999999"]
             }]
         },
@@ -36,7 +36,6 @@ if (chartCanvas && window.Chart) {
 
 function updateChart() {
     const vals = [loans, housing, essentials, lifestyle, savings].map(i => Number(i?.value) || 0);
-    const total = vals.reduce((s, v) => s + v, 0);
     if (config) {
         config.data.datasets[0].data = vals;
         config.update();
@@ -194,3 +193,24 @@ function displayIncome() {
 
 // Run when page loads
 displayIncome();
+
+
+const addExpense = document.getElementById('Add-expense');
+
+addExpense.onclick = function() {
+    const expenseList = document.getElementById('Expenses');
+
+    const newExpenseLabel = document.createElement('label');
+    newExpenseLabel.textContent = 'New Expense:';
+    newExpenseLabel.setAttribute('for', 'new-expense');
+
+    const newExpense= document.createElement('input');
+    newExpense.setAttribute('type', 'number');
+    newExpense.setAttribute('for', 'new-expense');
+    newExpense.setAttribute('placeholder', 'New Expense');
+    newExpense.setAttribute('class', 'Expense');
+    newExpense.setAttribute('id', 'New-Expense');
+    
+    expenseList.appendChild( newExpenseLabel);
+    expenseList.appendChild( newExpense);
+}
