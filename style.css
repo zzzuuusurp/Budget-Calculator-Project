@@ -60,6 +60,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;
+
 }
 .Expense {
     width: 200px;
@@ -97,7 +98,7 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
     width: 90vw;
-    gap: 20px;
+    gap: 40px;
     padding: 5%;
 }
 @media screen and (max-width: 768px) {
@@ -106,4 +107,17 @@ body {
     }
     
     
+}
+@media screen and (max-width: 480px) {
+    nav {
+        flex-direction: column;
+        height: auto;
+        padding: 10px;
+    }
+    nav img {
+        height: 50px;
+    }
+    .hero-img {
+        height: 50vh;
+    }
 }
