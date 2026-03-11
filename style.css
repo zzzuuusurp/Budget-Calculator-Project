@@ -18,7 +18,6 @@ nav img {
     width: auto;
     height: 100%;
     border-radius: 100%;
-    
 }
 nav a:last-child {
     width: auto;
@@ -166,7 +165,51 @@ header {
     
     
 }
-@media screen and (max-width: 480px) {
+
+@media screen and (max-width: 1072px) {
+    :root {
+        background-color: red;
+    } /*debugging purposes only PLEASE get rid of thie before its done*/
+    .structure1 {
+        padding: 5%;
+        font-size: 1.2em;
+    }
+    #proceed {
+        width: 15vw;
+        padding: 3%;
+    }
+    .center {
+        text-align: center;
+    }
+    #careerList {
+        grid-template-columns: repeat(auto-fill, minmax(40%, 2fr));
+    }
+} /*tablet responsive design*/
+
+@media screen and (max-width: 860px) {
+    :root {
+        background-color: green;
+    }
+    .structure1 {
+        width: 40vw;
+    }
+    .option {
+        font-size: 18px;
+        width: 70vw;
+    }
+    #careerList {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        padding: 5%;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    :root {
+        background-color: purple;
+    } /*debugging purposes only PLEASE get rid of thie before its done*/
     nav {
         flex-direction: column;
         height: auto;
@@ -178,4 +221,9 @@ header {
     .hero-img {
         height: 50vh;
     }
-}
+    .structure1 {
+        width: 80vw;
+        height: auto;
+        margin-top: auto;
+    }
+} /*mobile responsive design

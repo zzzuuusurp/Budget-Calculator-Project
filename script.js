@@ -104,7 +104,6 @@ function loadLocalStorage() {
          option.innerHTML = `${career.Occupation}: $${career.Salary}`;
          option.setAttribute("id", `${index}`);
          option.addEventListener("click", () => {
-
             choice.Occupation = career.Occupation;
             choice.Salary = career.Salary;
             saveLocalStorage();
