@@ -10,6 +10,7 @@ const lifestyle = document.getElementById("Lifestyle");
 const savings = document.getElementById("Savings");
 const chartCanvas = document.getElementById("Chart");
 const inputs = [loans, housing, essentials, lifestyle, savings];
+const addExpense = document.getElementById('Add-expense');
 
 let config = null;
 if (chartCanvas && window.Chart) {
@@ -195,13 +196,14 @@ function displayIncome() {
 displayIncome();
 
 
-const addExpense = document.getElementById('Add-expense');
 
-addExpense.onclick = function() {
+let expenseCount = 0;
+
+addExpense.addEventListener("click", function() {
+    expenseCount++;
     const expenseList = document.getElementById('Expenses');
-
     const newExpenseLabel = document.createElement('label');
-    newExpenseLabel.textContent = 'New Expense:';
+    newExpenseLabel.textContent = `New Expense #${expenseCount}:`;
     newExpenseLabel.setAttribute('for', 'new-expense');
 
     const newExpense= document.createElement('input');
@@ -209,8 +211,7 @@ addExpense.onclick = function() {
     newExpense.setAttribute('for', 'new-expense');
     newExpense.setAttribute('placeholder', 'New Expense');
     newExpense.setAttribute('class', 'Expense');
-    newExpense.setAttribute('id', 'New-Expense');
-    
+    newExpense.setAttribute('id', `New-Expense-${expenseCount}`);
     expenseList.appendChild( newExpenseLabel);
     expenseList.appendChild( newExpense);
 }
