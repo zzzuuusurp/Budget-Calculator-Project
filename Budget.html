@@ -28,35 +28,44 @@
         <section id="Expenses">
             <h2>Expenses</h2>
             <form class="row-Aligned">
-            <label for="Student-Loans">Student Loans:</label>
-            <input type="number" id="Student-Loans" name="Student-Loans" step="1" class="Expense">
+                <label for="Student-Loans">Student Loans:</label>
+                <input type="number" id="Student-Loans" name="Student-Loans" step="1" class="Expense">
             </form>
             <form class="row-Aligned">
-            <label for="Housing">Housing:</label>
-            <input type="number" id="Housing" name="Housing" step="1" class="Expense">
+                <label for="Housing">Housing:</label>
+                <input type="number" id="Housing" name="Housing" step="1" class="Expense">
             </form>
-            <label for="Essential">Essential:</label>
-            <input type="number" id="Essential" name="Essential" step="1" class="Expense">
-            <label for="Life-style">Lifestyle:</label>
-            <input type="number" id="Lifestyle" name="Life-style" step="1" class="Expense">
-            <label for="Savings">Savings:</label>
-            <input type="number" id="Savings" name="Savings" step="1" class="Expense">
+            <form class="row-Aligned">
+                <label for="Essential">Essential:</label>
+                <input type="number" id="Essential" name="Essential" step="1" class="Expense">
+            </form>
+            <form class="row-Aligned">
+                <label for="Life-style">Lifestyle:</label>
+                <input type="number" id="Lifestyle" name="Life-style" step="1" class="Expense">
+            </form>
+            <form class="row-Aligned">
+                <label for="Savings">Savings:</label>
+                <input type="number" id="Savings" name="Savings" step="1" class="Expense">
+            </form>
         </section>
             <button id="Add-expense">Add Expense</button>
         </div>
-
-        <div id="container-Right">
-            <canvas id="Chart"></canvas>
-            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-            <script src="script.js" defer>
-                displayResults();
-                
-                
-            </script>
+        <div id="container-right-bigger">
+            <div id="container-Right">
+                <canvas id="Chart"></canvas>
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <script src="script.js" defer>
+                    displayResults();
+                </script>
+            </div>
+            <div id="advice-container">
+                <section id="Results" class="EECU-special">
+                    <h1>Results</h1>
+                    <p>Total remaining: <span id="remainder"></span></p>
+                </section>
+                <section id="WiseUp" class="EECU-special"></section>
+            </div>
         </div>
-
-
-
         </main>
        
 

@@ -137,6 +137,7 @@ body {
 
 #container-Right {
     width: 25vw;
+    height: 500px;
 }
 
 header {
@@ -154,8 +155,30 @@ header {
     background-color: green;
 }
 
-#row-aligned {
+.row-Aligned {
     display: flex;
+    justify-content: space-between;
+    width: 100%;
+    background-color: lightblue;
+    padding: 5px;
+}
+
+.Expense::before {
+    content: "S";
+    font-weight: bold;
+}
+
+#searchBar {
+    align-self: center;
+    width: 75vw;
+    height: 30px;
+    font-size: 24px;
+    border: 1px solid black;
+}
+#searchBarAlign {
+    justify-content: center;
+    width: 100vw;
+    text-align: center;
 }
 
 @media screen and (max-width: 768px) {
