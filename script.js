@@ -99,6 +99,7 @@ const saveBudget = () => {
 }
 
 inputs.forEach(input => { if (input) input.addEventListener("input", updateChart); });
+inputs.forEach(input => { if (input) input.addEventListener("input", displayIncome); });
 
 
 
@@ -172,7 +173,6 @@ function loadLocalStorage() {
     }
 }
 
-
 // Federal tax using bracket portions
 function federalTax(salary) {
     let tax = 0;
@@ -207,6 +207,26 @@ function taxes() {
     return { totalTaxes, netSalary };
 }
 
+//find math for every expense
+function findRemainder() {
+    let salary = choice.Salary;
+    const { totalTaxes } = taxes();
+    salary = ((salary - totalTaxes ) / 12).toFixed(2);
+    for (var input in inputs) {
+        const number = input.value || 0;
+        salary = salary - number
+    }
+    if (salary < 0) {
+        total.classList.add('negative');
+        total.classList.remove('positive');
+    }
+    else if (salary > 0) {
+        total.classList.add('negative');
+        total.classList.remove('positive');
+    };
+    total.innerHTML = `$${salary}`
+}
+
 // Display income section
 function displayIncome() {
     loadLocalStorage();
@@ -227,6 +247,7 @@ function displayIncome() {
         <p>Net Salary: $${netSalary.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>
         <p><strong>Monthly Income: $${(netSalary / 12).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</strong></p>
     `;
+    findRemainder();
 }
 
 //calculates the total expenses and returns the total sum minus the net monthly salary (includes the new expense inputs)
