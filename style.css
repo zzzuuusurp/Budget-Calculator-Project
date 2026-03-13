@@ -2,6 +2,7 @@
     --primary-color: #0054A8;
     --secondary-color: #ffffff;
     --index-blue: #0054A8BF;
+    font-family:Georgia, 'Times New Roman', Times, serif;
 }
 
 
@@ -41,6 +42,10 @@ body {
     
 }
 
+.hidden {
+    visibility: hidden;
+}
+
 .hero-img::before { /*This allows for the blur affect*/
     background-image: url(Images/Hero.jpg);
     content: "";
@@ -57,7 +62,6 @@ body {
     background-color: var(--index-blue);
     padding: 10% 5%;
     font-size: 1.5em;
-    font-family: "Noto Sans", sans-serif;
     font-weight: 500;
     height: 30vh;
     width: 30vw;
@@ -68,6 +72,11 @@ body {
     align-items: center;
 }
 
+.looks-invisible {
+    border:none;
+    background-color: transparent;
+    color: black;
+}
 
 #proceed {
     background-color:var(--secondary-color);
@@ -84,17 +93,20 @@ body {
     align-items: center;
 }
 #Expenses {
-    font-family: "Noto Sans", sans-serif;
     display: flex;
     flex-direction: column;
     gap: 0.625rem;
+    width: 40vw;
 
 }
 .Expense {
-    width: 200px;
+    width: 150px;
 }
 #Add-expense {
-    width: 20vw;
+    width: 100%;
+    text-align: center;
+    align-self: center;
+    justify-self: center;
     padding: 5px;
     background-color: var(--primary-color);
     color: var(--secondary-color);
@@ -136,7 +148,8 @@ body {
 }
 
 #container-Right {
-    width: 25vw;
+    width: 30vw;
+    margin: 45px;
     height: 500px;
 }
 
@@ -146,7 +159,7 @@ header {
 }
 
 #Income {
-    font-family: "Noto Sans", sans-serif;
+    width: fit-content;
 }
 
 #circle-green {
@@ -158,7 +171,7 @@ header {
 .row-Aligned {
     display: flex;
     justify-content: space-between;
-    width: 100%;
+    width: 97%;
     background-color: lightblue;
     padding: 5px;
 }
@@ -181,6 +194,31 @@ header {
     text-align: center;
 }
 
+#mobile-wrap {
+    display: flex;
+}
+#advice-container {
+    justify-self: center;
+    text-align: left;
+    padding: 15px;
+}
+.EECU-special {
+    background-color: var(--index-blue);
+    padding: 10px;
+    width: 30vw;
+    margin: 10px;
+}
+
+.negative {
+    color: red;
+    font-size: 48px;
+}
+
+.positive {
+    color: greenyellow;
+    font-size: 48px;
+}
+
 @media screen and (max-width: 768px) {
     #careerList {
         grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
@@ -190,9 +228,6 @@ header {
 }
 
 @media screen and (max-width: 1072px) {
-    :root {
-        background-color: red;
-    } /*debugging purposes only PLEASE get rid of thie before its done*/
     .structure1 {
         padding: 5%;
         font-size: 1.2em;
@@ -204,15 +239,27 @@ header {
     .center {
         text-align: center;
     }
+    .Expense {
+        width: 30%;
+    }
     #careerList {
         grid-template-columns: repeat(auto-fill, minmax(40%, 2fr));
+    }
+    #mobile-wrap {
+        flex-direction: column;
+    }
+    #container-Right {
+        width: 50vw;
+    }
+    #container-Left {
+        align-items: center;
+    }
+    .EECU-special {
+        width:fit-content;
     }
 } /*tablet responsive design*/
 
 @media screen and (max-width: 860px) {
-    :root {
-        background-color: green;
-    }
     .structure1 {
         width: 40vw;
     }
@@ -230,13 +277,10 @@ header {
 }
 
 @media screen and (max-width: 640px) {
-    :root {
-        background-color: purple;
-    } /*debugging purposes only PLEASE get rid of thie before its done*/
     nav {
-        flex-direction: column;
-        height: auto;
-        padding: 10px;
+        align-items: center;
+        justify-content: space-between;
+        padding: auto;
     }
     nav img {
         height: 50px;
