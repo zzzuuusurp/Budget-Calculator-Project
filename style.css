@@ -60,6 +60,7 @@ body {
 
 .structure1 {
     background-color: var(--index-blue);
+    color: var(--secondary-color);
     padding: 10% 5%;
     font-size: 1.5em;
     font-weight: 500;
@@ -97,6 +98,8 @@ body {
     flex-direction: column;
     gap: 0.625rem;
     width: 40vw;
+    align-items: center;
+    text-align: center;
 
 }
 .Expense {
@@ -200,12 +203,12 @@ header {
 #advice-container {
     justify-self: center;
     text-align: left;
-    padding: 15px;
 }
-.EECU-special {
+section.EECU-special {
+    color: white;
     background-color: var(--index-blue);
     padding: 10px;
-    width: 30vw;
+    width: 100%;
     margin: 10px;
 }
 
@@ -228,6 +231,9 @@ header {
 }
 
 @media screen and (max-width: 1072px) {
+    #Expenses {
+        width: 50vw;
+    }
     .structure1 {
         padding: 5%;
         font-size: 1.2em;

@@ -133,7 +133,6 @@ addExpense.addEventListener("click", function() {
 
 // gets random color and pushes it to the color list to be used in the chart
 function getRandomColor() { 
-    var colors = [];
       var letters = '0123456789ABCDEF'.split('');
       var color = '#';
       for (var x = 0; x < 6; x++) {
@@ -223,15 +222,17 @@ function displayIncome() {
     const salary = Number(choice.Salary) || 0;
 
     const totalTaxes = taxes();
-    const netSalary = (salary - totalTaxes).toFixed(2)
+    const netSalary = (salary - totalTaxes).toFixed(2);
 
     incomeDiv.innerHTML = `
+        <section class= EECU-special>
         <h2>Income</h2>
         <p><strong>Career: ${choice.Occupation || "N/A"}</strong></p>
         <p>Annual Salary: $${salary.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>
         <p>Total Taxes: $${totalTaxes.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>
         <p>Net Salary: $${netSalary.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>
         <p><strong>Monthly Income: $${(netSalary / 12).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</strong></p>
+        </section>
     `;
 } //i have no idea why the guy who did this used this instead of .toFixed so dont ask
 
@@ -255,9 +256,8 @@ savings.addEventListener('input', () => {
     checkYoSavings(savings.value)
 });
 
-
 //run when page loads
 loadLocalStorage()
 displayIncome();
-checkYoSavings(savings.value() || 0);
+checkYoSavings(savings.value || 0);
 findRemainder()
