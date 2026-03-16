@@ -13,9 +13,9 @@ const inputs = [loans, housing, essentials, lifestyle, savings];
 const addExpense = document.getElementById('Add-expense');
 const wiseUp = document.getElementById('WiseUp');
 const total = document.getElementById('remainder');
-const searchBar = document.getElementById('searchBar')
 const colorList = ["red", 'blue', 'green', 'yellow', 'purple']
 const advice = document.getElementById('advice-container')
+
 
 
 //SAVE/LOAD FUNCTIONS
@@ -33,78 +33,11 @@ function loadLocalStorage() {
     console.log(savedChoice);
 }
 
-console.log(getCareers())
 
-//GET CAREER, SEARCH BAR, AND SHOWCASE CAREERS
-
-async function getCareers() {
-    const url = "https://eecu-data-server.vercel.app/data";
-    loadLocalStorage();
-    console.log("Loaded saved choice:", choice);
-    try {
-        const response = await fetch(url);
-        const jobs = await response.json();
-        return jobs;
-    }
-    catch (error) {
-        console.error("Error fetching careers data:", error);
-        return [];
-    }
-}
-
-//filters by search values
-function searchFilter(term) {
-    let filteredCareers=[];
-    if (!term) {
-        createOptions(getCareers)
-    }
-    else {
-        const careers = getCareers()
-        for (var career in careers) {
-            if (career.Occupation.contains(term)) {
-                filteredCareers.push(career)
-                console.log('found career with term')
-            }
-            else {
-                console.log('cannot find term')
-            };
-        };
-        createOptions(filteredCareers)
-    }
-}
-searchBar.addEventListener('input', () => {
-    searchFilter(searchBar.value)
-});
-
-
-//creates options
-function createOptions(careers) {
-    const list = document.getElementById("careerList");
-
-    careers.forEach((career, index) => {
-    const option = document.createElement("section");
-     option.innerHTML = `${career.Occupation}: $${career.Salary}`;
-     option.setAttribute("id", `${index}`);
-     option.addEventListener("click", () => {
-        choice.Occupation = career.Occupation;
-        choice.Salary = career.Salary;
-        saveLocalStorage();
-        console.log(choice);
-     });
-     option.onclick = function() {
-        window.location.href = "Budget.html";
-     }
-     option.classList.add("option");
-
-    list.appendChild(option);
-    });
-}
 
 // Load saved choice and initialize page-specific UI
 loadLocalStorage();
-if (document.getElementById("careerList")) {
-    getCareers();
-}
+
 
 
 //CHART! I LOVE CHART!
@@ -172,20 +105,15 @@ let expenseCount = 0; //used to create unique ids for new expenses
 addExpense.addEventListener("click", function() {
     expenseCount++;
     const expenseList = document.getElementById('Expenses');
-    const newExpenseLabel = document.createElement('input');
+    const newExpenseLabel = document.createElement('label');
     const container = document.createElement('form');
-    container.setAttribute('class', 'row-Aligned')
-    newExpenseLabel.placeholder = `Expense ${expenseCount}`; 
-    newExpenseLabel.setAttribute('for', `New-Expense-${expenseCount}`);
-    newExpenseLabel.classList.add('looks-invisible');
-    newExpenseLabel.id.add(`labelFor-${expenseCount}`)
-    newExpenseLabel.addEventListener('type', (e) => {
-        newName(e)
-    })
+    container.setAttribute('class', 'row-Aligned');
+    newExpenseLabel.innerHTML =`New Expense #${expenseCount}`
+    newExpenseLabel.setAttribute('for', `new-expense-${expenseCount}`);
 
     const newExpense= document.createElement('input');
     newExpense.setAttribute('type', 'number');
-    newExpense.setAttribute('for', 'new-expense');
+    newExpense.setAttribute('name', `new-expense-${expenseCount}`);
     newExpense.setAttribute('class', 'Expense');
     newExpense.setAttribute('id', `New-Expense-${expenseCount}`); //new expense id!
     newExpense.addEventListener('input', updateChart);
@@ -198,15 +126,10 @@ addExpense.addEventListener("click", function() {
     expenseList.appendChild(addExpense) //keeps the button at the bottom of the list
     expenseList.appendChild(advice) // keeps the advice at the bottomer of the list
     inputs.push(newExpense);
-    getRandomColor()
-    updateChart()
+    getRandomColor(); //gets a new color for new expense on the chart
+    updateChart();
     console.log(inputs);
 });
-
-//allows you to rename the custom variables
-function newName(name) {
-    console.log(name)
-}
 
 // gets random color and pushes it to the color list to be used in the chart
 function getRandomColor() { 
@@ -216,18 +139,13 @@ function getRandomColor() {
       for (var x = 0; x < 6; x++) {
         color += letters[Math.floor(Math.random() * 16)];
       }
-      colors.push(color);
-      colorList.push(colors);
+      colorList.push(color);
       return colorList;
 }
 
 
 //TAXES
 
-// If this page has an Income section, show taxes and income
-if (document.getElementById("Income")) {
-    displayIncome();
-}
 
 // Federal tax using bracket portions
 function federalTax(salary) {
@@ -337,17 +255,9 @@ savings.addEventListener('input', () => {
     checkYoSavings(savings.value)
 });
 
-//prevents the user from going below the hundreth's place
-function round(input) {
-    return input.toFixed(2)
-}
 
-inputs.forEach(input => {if (input.classList.contains('Expense')) input.addEventListener('input', () => {
-    round(input.value)
-})})
-
-
-// Run when page loads
+//run when page loads
+loadLocalStorage()
 displayIncome();
-checkYoSavings();
-searchFilter(getCareers())
+checkYoSavings(savings.value() || 0);
+findRemainder()
