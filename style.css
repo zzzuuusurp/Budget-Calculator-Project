@@ -61,15 +61,14 @@ body {
 .structure1 {
     background-color: var(--index-blue);
     color: var(--secondary-color);
-    padding: 10% 5%;
+    padding: 4%;
     font-size: 1.5em;
     font-weight: 500;
     height: 30vh;
     width: 30vw;
-    z-index: 2;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
 }
 
